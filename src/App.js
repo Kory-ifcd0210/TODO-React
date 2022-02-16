@@ -10,6 +10,13 @@ class App extends Component {
     }
   }
 
+  updateInput(key, value){
+    //update react state
+    this.setState({
+      [key]: value
+    })
+  }
+
   addItem(){
     //create item with unique id
     const newItem={
@@ -30,6 +37,15 @@ class App extends Component {
     });
   }
 
+    deleteItem(id){
+      //copy current list of item
+      const list =[...this.state.list];
+
+      //filter out item being deleted
+      const updatedList = list.filter(item => item.id !== id);
+
+      this.setState({list: updatedList})
+    }
 
 
   render(){
@@ -50,6 +66,20 @@ class App extends Component {
           >
             Add
           </button>
+          <ul>
+            {this.state.list.map(item => {
+              return(
+                <li key={item.id}>
+                  {item.value}
+                  <button
+                  onClick={ () => this.deleteItem(item.id)}
+                  >
+                    X
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
         </div>
       </section>
     </main>
