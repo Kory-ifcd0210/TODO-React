@@ -1,90 +1,58 @@
-import React, { Component } from 'react';
+import React, { Fragment, useState, useRef, useEffect } from 'react';
+import { TodoList } from './components/TodoList';
 
-class App extends Component {
-  constructor (props){
-    super(props);
 
-    this.state={
-      newItem:"",
-      list: []
-    }
+export function App() {
+  const [todos, setTodos] = useState([  ]);
+
+
+  const todoTaskRef = useRef();
+
+  useEffect(()=>{
+    const storedTodos = JSON.parse( localStorage.getItem("todoApp.todos"));
+    if (storedTodos){
+      setTodos(storedTodos);
+  }
+},[])
+
+
+  useEffect(()=>{
+    localStorage.setItem("todoApp.todos", JSON.stringify(todos))
+  }, [todos])
+
+
+  const toggleTodo = (id) =>{
+    const newTodos =[...todos];
+    const todo = newTodos.find((todo)=> todo.id ===id);
+    todo.completed = !todo.completed;
+    setTodos(newTodos);
   }
 
-  updateInput(key, value){
-    //update react state
-    this.setState({
-      [key]: value
-    })
+
+  const handleTodoAdd = (e) => {
+    const task= todoTaskRef.current.value;
+    if (task === "") return;
+
+    setTodos((prevTodos) =>{
+      return [...prevTodos, {id: 1+Math.random(), task, completed: false}
+      ]}
+    );
   }
 
-  addItem(){
-    //create item with unique id
-    const newItem={
-      id: 1+Math.random(),
-      value: this.state.newItem.slice()
-    };
+  const handleClearAll = () =>{
+    const newTodos = todos.filter((todo) => !todo.completed);
+    setTodos(newTodos);
+  };
 
-    //copy of current list of items
-    const list = [...this.state.list];
-
-    //add new item to list
-    list.push(newItem)
-
-    //update state with new list and reset newItem input
-    this.setState({
-      list,
-      newItem:""
-    });
-  }
-
-    deleteItem(id){
-      //copy current list of item
-      const list =[...this.state.list];
-
-      //filter out item being deleted
-      const updatedList = list.filter(item => item.id !== id);
-
-      this.setState({list: updatedList})
-    }
-
-
-  render(){
-    return (
-      <main className="App">
-      <section className="row">
-        <div className="col col-12">
-          <h1>To Do List</h1>
-          <p>Add an Item...</p>
-          <input
-            type="text"
-            placeholder="Type item here ..."
-            value={this.state.newItem}
-            onChange={e => this.updateInput("newItem", e.target.value)}
-          />
-          <button
-            onClick={() => this.addItem()}
-          >
-            Add
-          </button>
-          <ul>
-            {this.state.list.map(item => {
-              return(
-                <li key={item.id}>
-                  {item.value}
-                  <button
-                  onClick={ () => this.deleteItem(item.id)}
-                  >
-                    X
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      </section>
-    </main>
+  return (
+    <Fragment>
+      <input ref={todoTaskRef} type= "text" placeholder="New task"/>
+      <button onClick={handleTodoAdd}>&#10004;</button>
+      <button onClick={handleClearAll}>&#10006;</button>
+      <p>Te quedan {todos.filter((todo)=> !todo.completed).length}</p>
+      <TodoList todos={todos} toggleTodo={toggleTodo}/>
+    </Fragment>
   );
-}
 }
 
 export default App;
