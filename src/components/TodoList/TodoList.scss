@@ -1,0 +1,19 @@
+.todo-list-section {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and(min-width: 560px) {
+        max-height: auto;
+        min-height: 400px;
+    }
+}
+
+.todos-list {
+    max-height: 330px;
+    margin-bottom: 0;
+    overflow-y: auto;
+
+    @media screen and(min-width: 560px) {
+        flex-grow: 1;
+    }
+}

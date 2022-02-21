@@ -1,9 +1,14 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react';
-import { TodoList } from './components/TodoList';
+
+import { TodoList } from './components/TodoList/TodoList';
+// import {Footer} from './components/Footer';
+import style from './styles/style.scss';
+
 
 
 export function App() {
   const [todos, setTodos] = useState([  ]);
+
 
 
   const todoTaskRef = useRef();
@@ -30,7 +35,9 @@ export function App() {
 
 
   const handleTodoAdd = (e) => {
+    e.preventDefault() //this is to the form not open another page
     const task= todoTaskRef.current.value;
+    todoTaskRef.current.value = ""; //lclear the input
     if (task === "") return;
 
     setTodos((prevTodos) =>{
@@ -46,11 +53,16 @@ export function App() {
 
   return (
     <Fragment>
+      <h1 className="title">TODO</h1>
+      <form>
       <input ref={todoTaskRef} type= "text" placeholder="New task"/>
-      <button onClick={handleTodoAdd}>&#10004;</button>
-      <button onClick={handleClearAll}>&#10006;</button>
-      <p>Te quedan {todos.filter((todo)=> !todo.completed).length}</p>
+      <div>
+      <button type="submit" onClick={handleTodoAdd}>&#10004;</button>
       <TodoList todos={todos} toggleTodo={toggleTodo}/>
+      </div>
+      </form>
+      <p>Te quedan {todos.filter((todo)=> !todo.completed).length}</p>
+      <button onClick={handleClearAll}>Clear All completed</button>
     </Fragment>
   );
 }

@@ -7,11 +7,17 @@ export function TodoItem({ todo, toggleTodo }) {
     toggleTodo (id);
   };
 
+  
+  // const handleClearItem = () =>{
+  //   const newTodos = todos.filter((todo) => !todo.completed);
+  //   setTodos(newTodos);
+  // };
 
   return (
     <li>
       <input type="checkbox"  checked={completed} onChange={handleTodoClick}/>
       {task}
+      <button>&#10006;</button>
     </li>
   );
 }

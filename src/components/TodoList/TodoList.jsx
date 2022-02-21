@@ -1,5 +1,7 @@
 import React from 'react';
-import { TodoItem } from './TodoItem';
+import "./TodoList.scss";
+import { TodoItem } from '../TodoItem/TodoItem';
+
 
 export function TodoList({ todos, toggleTodo }) {
     return (
