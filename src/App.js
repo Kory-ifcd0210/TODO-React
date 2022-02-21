@@ -3,6 +3,7 @@ import React, { Fragment, useState, useRef, useEffect } from 'react';
 import { TodoList } from './components/TodoList/TodoList';
 // import {Footer} from './components/Footer';
 import style from './styles/style.scss';
+import bg from './assets/img/bgimg.jpg';
 
 
 
@@ -53,16 +54,26 @@ export function App() {
 
   return (
     <Fragment>
-      <h1 className="title">TODO</h1>
-      <form>
-      <input ref={todoTaskRef} type= "text" placeholder="New task"/>
-      <div>
-      <button type="submit" onClick={handleTodoAdd}>&#10004;</button>
-      <TodoList todos={todos} toggleTodo={toggleTodo}/>
+      <div className="general-background d-flex flex-column">
+        <div className="top-background">
+          <div className="gradient" />
+          <img src={bg} className="img-background" alt='back-img'/>
+        </div>
       </div>
-      </form>
-      <p>Te quedan {todos.filter((todo)=> !todo.completed).length}</p>
-      <button onClick={handleClearAll}>Clear All completed</button>
+      <main className="main-container">
+        <header className="main-header">
+          <h1 className="main-header-title">TODO</h1>
+        </header>
+        <form>
+          <input ref={todoTaskRef} type= "text" placeholder="New task"/>
+          <div>
+              <button type="submit" onClick={handleTodoAdd}>&#10004;</button>
+              <TodoList todos={todos} toggleTodo={toggleTodo}/>
+          </div>
+        </form>
+        <p>Te quedan {todos.filter((todo)=> !todo.completed).length}</p>
+        <button onClick={handleClearAll}>Clear All completed</button>
+      </main>
     </Fragment>
   );
 }
