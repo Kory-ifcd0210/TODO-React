@@ -35,7 +35,7 @@ body {
 }
 
 .top-background {
-    height: 30%;
+    height: 40%;
     position: relative;
 }
 
@@ -99,6 +99,22 @@ body {
         }
     }
 }
+
+.hidden{
+    visibility: hidden;
+}
+
+
+.footer-App{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    a{
+        text-decoration: none;
+    }
+}
+
 
 
 .custom-section {

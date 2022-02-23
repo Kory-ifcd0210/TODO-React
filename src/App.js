@@ -52,6 +52,11 @@ export function App() {
     setTodos(newTodos);
   };
 
+  const handleRemoveTodo =(item) =>{
+    const newTodos = todos.filter((todo) => todo.id !==item.id );
+    setTodos(newTodos);
+  }
+
   return (
     <Fragment>
       <div className="general-background d-flex flex-column">
@@ -67,12 +72,14 @@ export function App() {
         <form>
           <input ref={todoTaskRef} type= "text" placeholder="New task"/>
           <div>
-              <button type="submit" onClick={handleTodoAdd}>&#10004;</button>
-              <TodoList todos={todos} toggleTodo={toggleTodo}/>
+              <button className='hidden' type="submit" onClick={handleTodoAdd}>&#10004;</button>
+              <TodoList todos={todos} toggleTodo={toggleTodo} removeTodo={handleRemoveTodo}/>
           </div>
         </form>
+        <footer className='footer-App'>
         <p>Te quedan {todos.filter((todo)=> !todo.completed).length}</p>
-        <button onClick={handleClearAll}>Clear All completed</button>
+        <a onClick={handleClearAll}>Clear All completed</a>
+        </footer>
       </main>
     </Fragment>
   );

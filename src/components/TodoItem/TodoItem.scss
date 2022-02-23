@@ -1,0 +1,18 @@
+.todoItem-main-container{
+    background-color: white;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    place-content: space-between;
+    padding: 10px 30px;
+    border-bottom: 1px solid lightblue;
+}
+
+
+.left-side{
+    input{
+        margin-right: 20px;
+    }
+
+}
